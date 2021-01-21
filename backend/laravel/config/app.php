@@ -174,6 +174,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        // JeroenNoten\LaravelAdminLte\ServiceProvider::class,
 
     ],
 
@@ -187,9 +189,7 @@ return [
     | the aliases are "lazy" loaded so they don't hinder performance.
     |
     */
-
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
@@ -226,6 +226,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+
+
 
     ],
 
