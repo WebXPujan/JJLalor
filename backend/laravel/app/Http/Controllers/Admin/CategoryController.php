@@ -60,7 +60,7 @@ class CategoryController extends Controller
                 $destination = 'uploads/main/';                
                 $file=Image::make($f);
                 $file->orientate();
-                $file->crop(224,224);
+                $file->crop(500,500);
                 $file->save($destination.$filename,100);
                 $file->save(public_path('uploads/category/full/'.$filename,100));
                 $file->resize(114, 114, function ($constraint) {
@@ -138,8 +138,14 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Category $category,$id)
-    {
+    {try {
         $this->category->find($id)->delete();
+      
+      } catch (\Illuminate\Database\QueryException $e) {
+        
+          return redirect()->back()->with('fail', 'unable to delete');   
+        }
+        
         return redirect()->route('admin.categories');
     }
 }

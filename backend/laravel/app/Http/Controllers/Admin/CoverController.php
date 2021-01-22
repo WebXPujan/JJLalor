@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cover;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Str;
 
 class CoverController extends Controller
 {
@@ -55,7 +56,7 @@ class CoverController extends Controller
         if(!is_null($request->file('photo'))) { //checks if we do have file or not
             $f = $request->file('photo');
                 $extension = $f->getClientOriginalExtension(); //get file extension
-                $filename  = str_random(19).'.'.$extension; //randomstring generate
+                $filename  = Str::random(19).'.'.$extension; //randomstring generate
                 $destination = 'uploads/main/';                
                 $file=Image::make($f);
                 $file->orientate();
@@ -65,10 +66,10 @@ class CoverController extends Controller
                 $file->resize(114, 114, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save('uploads/cover/thumb/thumb_'.$filename,100);
-                $data['image'] = $filename;           
+                $data['photo'] = $filename;           
         }
         $cover = $this->cover->create($data);
-        return redirect()->route('admin.covers.index');
+        return redirect()->route('admin.covers');
     }
 
     /**
@@ -115,7 +116,7 @@ class CoverController extends Controller
         if(!is_null($request->file('photo'))) { //checks if we do have file or not
             $f = $request->file('photo');
                 $extension = $f->getClientOriginalExtension(); //get file extension
-                $filename  = str_random(19).'.'.$extension; //randomstring generate
+                $filename  = Str::random(19).'.'.$extension; //randomstring generate
                 $destination = 'uploads/main/';                
                 $file=Image::make($f);
                 $file->orientate();
@@ -125,12 +126,12 @@ class CoverController extends Controller
                 $file->resize(114, 114, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save('uploads/cover/thumb/thumb_'.$filename,100);
-                $data['image'] = $filename;           
+                $data['photo'] = $filename;           
         }
         $d = $this->cover->findOrFail($id);
         $d->update($data);
 
-        return redirect()->route('admin.covers.index');;
+        return redirect()->route('admin.covers');;
     }
 
     /**
@@ -142,6 +143,6 @@ class CoverController extends Controller
     public function destroy(Cover $cover,$id)
     {
         $this->cover->find($id)->delete();
-        return redirect()->route('admin.covers.index');
+        return redirect()->route('admin.covers');
     }
 }

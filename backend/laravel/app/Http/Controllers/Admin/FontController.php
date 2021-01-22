@@ -56,7 +56,7 @@ class FontController extends Controller
         }   
 
         $font = $this->font->create($data);
-        return redirect()->route('admin.fonts.index');
+        return redirect()->route('admin.fonts');
     }
 
     /**
@@ -108,7 +108,7 @@ class FontController extends Controller
         $d = $this->font->findOrFail($id);
         $d->update($data);
 
-        return redirect()->route('admin.fonts.index');
+        return redirect()->route('admin.fonts');
     }
 
     /**
@@ -120,6 +120,6 @@ class FontController extends Controller
     public function destroy(Font $font,$id)
     {
         $this->font->find($id)->delete();
-        return redirect()->route('admin.fonts.index');
+        return redirect()->route('admin.fonts');
     }
 }

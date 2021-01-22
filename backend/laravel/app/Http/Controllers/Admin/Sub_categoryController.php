@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Sub_category;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Str;
+
 
 class Sub_categoryController extends Controller
 {
     private $sub_category;
-    public function __construct(Sub_category $category){
+    public function __construct(Sub_category $sub_category){
         $this->sub_category = $sub_category;
     }
     /**
@@ -51,7 +53,7 @@ class Sub_categoryController extends Controller
         if(!is_null($request->file('image'))) { //checks if we do have file or not
             $f = $request->file('image');
                 $extension = $f->getClientOriginalExtension(); //get file extension
-                $filename  = str_random(19).'.'.$extension; //randomstring generate
+                $filename  = Str::random(19).'.'.$extension; //randomstring generate
                 $destination = 'uploads/main/';                
                 $file=Image::make($f);
                 $file->orientate();
@@ -108,7 +110,7 @@ class Sub_categoryController extends Controller
         if(!is_null($request->file('image'))) { //checks if we do have file or not
             $f = $request->file('image');
                 $extension = $f->getClientOriginalExtension(); //get file extension
-                $filename  = str_random(19).'.'.$extension; //randomstring generate
+                $filename  = Str::random(19).'.'.$extension; //randomstring generate
                 $destination = 'uploads/main/';                
                 $file=Image::make($f);
                 $file->orientate();
@@ -134,7 +136,16 @@ class Sub_categoryController extends Controller
      */
     public function destroy(Sub_category $sub_category,$id)
     {
-        $this->sub_category->find($id)->delete();
-        return redirect()->route('admin.sub_categories');
+
+        try {
+            $this->sub_category->find($id)->delete();
+          
+          } catch (\Illuminate\Database\QueryException $e) {
+            
+              return redirect()->back()->with('fail', 'unable to delete');   
+            }
+            
+            return redirect()->route('admin.sub_categories');
+    
     }
 }

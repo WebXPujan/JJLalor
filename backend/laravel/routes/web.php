@@ -62,13 +62,21 @@ Route::name('admin.')->group(function () {
     Route::get('/prices/delete/{id}',[App\Http\Controllers\Admin\PriceController::class, 'destroy'])->name('prices.destroy');
 
     //Sub Categories Routes
-    Route::get('/sub_categories',[App\Http\Controllers\Admin\Sub_CategoryController::class, 'index'])->name('sub_categories');
-    Route::get('/sub_categories/add',[App\Http\Controllers\Admin\Sub_CategoryController::class, 'create'])->name('sub_categories.add');
-    Route::post('/sub_categories/store',[App\Http\Controllers\Admin\Sub_CategoryController::class, 'store'])->name('sub_categories.store');
-    Route::get('/sub_categories/edit/{id}',[App\Http\Controllers\Admin\Sub_CategoryController::class, 'edit'])->name('sub_categories.edit');
-    Route::post('/sub_categories/update/{id}',[App\Http\Controllers\Admin\Sub_CategoryController::class, 'update'])->name('sub_categories.update');
-    Route::get('/sub_categories/delete/{id}',[App\Http\Controllers\Admin\Sub_CategoryController::class, 'destroy'])->name('sub_categories.destroy');
-    
+    Route::get('/sub_categories',[App\Http\Controllers\Admin\Sub_categoryController::class, 'index'])->name('sub_categories');
+    Route::get('/sub_categories/add',[App\Http\Controllers\Admin\Sub_categoryController::class, 'create'])->name('sub_categories.add');
+    Route::post('/sub_categories/store',[App\Http\Controllers\Admin\Sub_categoryController::class, 'store'])->name('sub_categories.store');
+    Route::get('/sub_categories/edit/{id}',[App\Http\Controllers\Admin\Sub_categoryController::class, 'edit'])->name('sub_categories.edit');
+    Route::post('/sub_categories/update/{id}',[App\Http\Controllers\Admin\Sub_categoryController::class, 'update'])->name('sub_categories.update');
+    Route::get('/sub_categories/delete/{id}',[App\Http\Controllers\Admin\Sub_categoryController::class, 'destroy'])->name('sub_categories.destroy');
+
+    //Shipping Zones Routes
+    Route::get('/shipping',[App\Http\Controllers\Admin\Sipping_zoneController::class, 'index'])->name('shipping_zones');
+    Route::get('/shipping_zones/add',[App\Http\Controllers\Admin\Sipping_zoneController::class, 'create'])->name('shipping_zones.add');
+    Route::post('/shipping_zones/store',[App\Http\Controllers\Admin\Sipping_zoneController::class, 'store'])->name('shipping_zones.store');
+    Route::get('/shipping_zones/edit/{id}',[App\Http\Controllers\Admin\Sipping_zoneController::class, 'edit'])->name('shipping_zones.edit');
+    Route::post('/shipping_zones/update/{id}',[App\Http\Controllers\Admin\Sipping_zoneController::class, 'update'])->name('shipping_zones.update');
+    Route::get('/shipping_zones/delete/{id}',[App\Http\Controllers\Admin\Sipping_zoneController::class, 'destroy'])->name('shipping_zones.destroy');
+
     //Steps Routes
     Route::get('/steps',[App\Http\Controllers\Admin\StepController::class, 'index'])->name('steps');
     

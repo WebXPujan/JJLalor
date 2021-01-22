@@ -229,30 +229,12 @@ return [
             'search' => true,
             'topnav' => true,
         ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
         ['header' => 'Administrator Actions'],
+        [
+            'text'       => 'Orders',
+            'icon_color' => 'indego',
+            'url'        => 'orders',
+        ],
         [
             'text'       => 'Categories',
             'icon_color' => 'red',
@@ -267,26 +249,27 @@ return [
             'text'       => 'Covers',
             'icon_color' => 'yellow',
             'url'        => 'covers',
-        ],
-        [
-            'text'       => 'Steps',
-            'icon_color' => 'green',
-            'url'        => 'steps',
-        ],
+        ],        
         [
             'text'       => 'Price Lists',
             'icon_color' => 'blue',
             'url'        => 'prices',
         ],
         [
-            'text'       => 'Orders',
-            'icon_color' => 'indego',
-            'url'        => 'orders',
+            'text'       => 'Steps',
+            'icon_color' => 'green',
+            'url'        => 'steps',
         ],
+        ['header' => 'Site Settings'],
         [
             'text'       => 'Fonts Management',
             'icon_color' => 'red',
             'url'        => 'fonts',
+        ],
+        [
+            'text' => 'Shipping Zones',
+            'url'  => 'shipping',
+            'icon' => 'fas fa-fw fa-lock',
         ],
     ],
 
@@ -392,6 +375,21 @@ return [
                     'type' => 'js',
                     'asset' => false,
                     'location' => '//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.min.js',
+                ],
+            ],
+        ],
+        'summernote' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/summernote/summernote.min.css',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/summernote/summernote.min.js',
                 ],
             ],
         ],

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class OrderController extends Controller
 {
@@ -68,7 +69,7 @@ class OrderController extends Controller
         }   
 
         $order = $this->order->create($data);
-        return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.orders');
     }
 
     /**
@@ -129,10 +130,10 @@ class OrderController extends Controller
                 $data['product_image_pdf'] = $documentName;
         }   
 
-        $d = $this->prder->findOrFail($id);
+        $d = $this->order->findOrFail($id);
         $d->update($data);
 
-        return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.orders');
     }
 
     /**
@@ -144,6 +145,6 @@ class OrderController extends Controller
     public function destroy(Order $order,$id)
     {
         $this->order->find($id)->delete();
-        return redirect()->route('admin.orders.index');
+        return redirect()->route('admin.orders');
     }
 }
