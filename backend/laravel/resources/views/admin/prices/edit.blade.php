@@ -21,12 +21,17 @@
                                 <option value="{{$d->id}}" @if($data->category == $d->id) selected @endif>{{$d->name}} </option>
                             @endforeach                          
                         </select>
+                        @if($errors->has('category'))
+                                <span class="invalid-feedback">
+                                    <strong>{{$errors->first('category')}}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
-                    <div class="form-group row {{$errors->has('name') ?'has-error' :''}}">
+                    <div class="form-group row ">
                         <label class="col-2 col-form-label">quantity</label>
                         <div class="col-10">
-                            <input class="form-control" type="text"  name="quantity" value="{{$data->quantity}}" required>
+                            <input class="form-control {{$errors->has('quantity') ?'is_invalid' :''}}" type="text"  name="quantity" value="{{$data->quantity}}">
                             @if($errors->has('quantity'))
                                 <span class="invalid-feedback">
                                     <strong>{{$errors->first('quantity')}}</strong>
@@ -34,10 +39,10 @@
                             @endif
                         </div>
                     </div>
-                    <div class="form-group row {{$errors->has('name') ?'has-error' :''}}">
+                    <div class="form-group row ">
                         <label class="col-2 col-form-label">price</label>
                         <div class="col-10">
-                            <input class="form-control" type="text"  name="price" value="{{$data->price}}" required>
+                            <input class="form-control {{$errors->has('price') ?'is_invalid' :''}}" type="text"  name="price" value="{{$data->price}}">
                             @if($errors->has('price'))
                                 <span class="invalid-feedback">
                                     <strong>{{$errors->first('price')}}</strong>

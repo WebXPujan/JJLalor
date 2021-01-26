@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Font;
 use Illuminate\Http\Request;
+use App\Http\Requests\FontRequest;
 
 class FontController extends Controller
 {
@@ -39,7 +40,7 @@ class FontController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FontRequest $request)
     {
         $data = [
             'name'=>$request->input('name')
@@ -89,7 +90,7 @@ class FontController extends Controller
      * @param  \App\Models\Font  $font
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Font $font,$id)
+    public function update(FontRequest $request, Font $font,$id)
     {
         $data = [
             'name'=>$request->input('name')

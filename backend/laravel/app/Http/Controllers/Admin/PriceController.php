@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Price;
 use Illuminate\Http\Request;
+use App\Http\Requests\PriceRequest;
 
 class PriceController extends Controller
 {
@@ -39,7 +40,7 @@ class PriceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PriceRequest $request)
     {
         $data = [
             'name'=>$request->input('name'),
@@ -82,7 +83,7 @@ class PriceController extends Controller
      * @param  \App\Models\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Price $price,$id)
+    public function update(PriceRequest $request, Price $price,$id)
     {
         $data = [
             'name'=>$request->input('name'),

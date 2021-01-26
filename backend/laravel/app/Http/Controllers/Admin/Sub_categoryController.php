@@ -7,6 +7,7 @@ use App\Models\Sub_category;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Str;
+use App\Http\Requests\Sub_categoryRequest;
 
 
 class Sub_categoryController extends Controller
@@ -42,7 +43,7 @@ class Sub_categoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Sub_categoryRequest $request)
     {
         $data = [
             'name'=>$request->input('name'),
@@ -99,7 +100,7 @@ class Sub_categoryController extends Controller
      * @param  \App\Models\Sub_category  $sub_category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sub_category $sub_category,$id)
+    public function update(Sub_categoryRequest $request, Sub_category $sub_category,$id)
     {
         $data = [
             'name'=>$request->input('name'),

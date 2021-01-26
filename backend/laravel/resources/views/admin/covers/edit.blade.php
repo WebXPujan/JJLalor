@@ -3,7 +3,7 @@
 @section('title', 'Covers')
 
 @section('content_header')
-    <h1>Add Cover</h1>
+    <h1>Update Cover {{$data->name}}</h1>
 @stop
 @section('plugins.Datatables', true)
 @section('content')
@@ -31,6 +31,11 @@
                                 <option value="{{$d->id}}" @if($data->category == $d->id) selected @endif>{{$d->name}} </option>
                              @endforeach                             
                         </select>
+                        @if($errors->has('category'))
+                                <span class="invalid-feedback">
+                                    <strong>{{$errors->first('category')}}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
                     <div class="form-group row">
@@ -41,6 +46,11 @@
                                 <option value="{{$d->id}}" @if($data->sub_category == $d->id) selected @endif>{{$d->name}}</option>
                             @endforeach                           
                         </select>
+                        @if($errors->has('sub_category'))
+                                <span class="invalid-feedback">
+                                    <strong>{{$errors->first('sub_category')}}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
                     <div class="form-group row">
@@ -51,14 +61,18 @@
                                 <option value="2" @if($data->cover_type == 2) selected @endif> Back Cover </option>
                                 <option value="3" @if($data->cover_type == 3) selected @endif> Inside Left Cover </option>                            
                                 <option value="4" @if($data->cover_type == 4) selected @endif> Inside Right Cover </option>                            
-
                         </select>
+                        @if($errors->has('cover_type'))
+                            <span class="invalid-feedback">
+                                <strong>{{$errors->first('cover_type')}}</strong>
+                            </span>
+                        @endif
                         </div>
                     </div>
                     <div class="form-group row {{$errors->has('phopto') ?'has-error' :''}}">
                         <label class="col-2 col-form-label">Insert Image</label>
                         <div class="col-10">
-                            <input class="form-control" type="file" name="photo">
+                            <input type="file" name="photo">
                             @if($errors->has('photo'))
                                 <span class="invalid-feedback">
                                     <strong>{{$errors->first('photo')}}</strong>
@@ -72,6 +86,11 @@
                             <x-adminlte-text-editor name="cover_type_html">
                                 {{$data->cover_type_html}}
                         </x-adminlte-text-editor>
+                        @if($errors->has('cover_type_html'))
+                            <span class="invalid-feedback">
+                                <strong>{{$errors->first('cover_type_html')}}</strong>
+                            </span>
+                        @endif
                         </div>
                     </div>
                     <div class="form-group row">
@@ -79,6 +98,11 @@
                         <div class="col-10">
                             <textarea name="cover_type_text" class="form-control">{{$data->cover_type_text}}</textarea>                            
                         </div>
+                        @if($errors->has('cover_type_text'))
+                            <span class="invalid-feedback">
+                                <strong>{{$errors->first('cover_type_text')}}</strong>
+                            </span>
+                        @endif
                     </div>
                     
                     <div class="form-group">

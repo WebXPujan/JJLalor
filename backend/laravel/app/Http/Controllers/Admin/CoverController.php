@@ -7,6 +7,7 @@ use App\Models\Cover;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Str;
+use App\Http\Requests\CoverRequest;
 
 class CoverController extends Controller
 {
@@ -42,7 +43,7 @@ class CoverController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CoverRequest $request)
     {
         $data = [
             'name'=>$request->input('name'),
@@ -102,7 +103,7 @@ class CoverController extends Controller
      * @param  \App\Models\Cover  $cover
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cover $cover,$id)
+    public function update(CoverRequest $request, Cover $cover,$id)
     {
         $data = [
             'name'=>$request->input('name'),

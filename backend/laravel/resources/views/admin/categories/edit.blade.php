@@ -12,10 +12,10 @@
             <div class="col-md-9">
                 <form action="{{route('admin.categories.update',$data->id)}}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
-                    <div class="form-group row {{$errors->has('name') ?'has-error' :''}}">
+                    <div class="form-group row">
                         <label class="col-2 col-form-label">Name</label>
                         <div class="col-10">
-                            <input class="form-control" type="text" value="{{$data->name}}"  name="name">
+                            <input class="form-control {{$errors->has('name') ?'is-invalid' :''}}" type="text" value="{{$data->name}}"  name="name">
                             @if($errors->has('name'))
                                 <span class="invalid-feedback">
                                     <strong>{{$errors->first('name')}}</strong>
@@ -23,10 +23,10 @@
                             @endif
                         </div>
                     </div>
-                    <div class="form-group row {{$errors->has('image') ?'has-error' :''}}">
+                    <div class="form-group row {{$errors->has('image') ?'is-invalid' :''}}">
                         <label class="col-2 col-form-label">Insert Image to change</label>
-                        <div class="col-10">
-                            <input class="form-control" type="file" name="image">
+                        <div class="col-4">
+                            <input type="file" name="image">
                             @if($errors->has('image'))
                                 <span class="invalid-feedback">
                                     <strong>{{$errors->first('image')}}</strong>
@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success" value="add">Add Categories</button>
+                        <button type="submit" class="btn btn-success" value="add">Update Category</button>
                     </div>
 
                 </form>
