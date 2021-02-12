@@ -49,22 +49,19 @@ class HomeController extends Controller
         return response()->json($data, 200);
     }
 
-    public function steps($category,$subcategory=null){
+    public function steps($category,$subcategory){
 
-        $cat_id = Category::where('slug','=',$category)->get(['id']);
-        $data = Step::with('step_body_content:cover_type,name,photo,category,sub_category')
-        ->where('steps.category','=',$cat_id[0]['id'])
-        ->get(['steps.step_position', 'steps.category', 'steps.step_name', 'steps.step_type as step_body_type', 'steps.description as step_desc','steps.cover_type']);
+        $cat_id = Category::where('slug','=',$category)->value('id');
         
-        if(isset($subcategory)){
-            $sub_cat = Sub_category::where('slug','=',$subcategory)->get(['id']);
-            $data = Step::with('step_body_content:cover_type,name,photo,category,sub_category')
-            ->where('steps.category','=',$cat_id[0]['id'])
-            ->where('steps.sub_category','=',$sub_cat[0]['id'])
-            ->get(['steps.step_position', 'steps.category', 'steps.sub_category', 'steps.step_name', 'steps.step_type as step_body_type', 'steps.description as step_desc','steps.cover_type']);
-            
-        }
+        $sub_cat = Sub_category::where('slug','=',$subcategory)->value('id');
+
+        $data =Step::with(array('step_body_content'=>function($query) use ($cat_id,$sub_cat){
+            $query->select()->where('category',$cat_id);
+           }))
+           ->where('category',$cat_id)->where('sub_category',$sub_cat)->get();
+        
         return response()->json($data, 200);
+        
     }
 
     public function shipping($zone){

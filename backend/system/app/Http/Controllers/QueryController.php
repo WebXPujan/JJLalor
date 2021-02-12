@@ -183,13 +183,20 @@ class QueryController extends Controller
              'front_side' => 'orders/pdf/'.$front,
             'back_side' => 'orders/pdf/'.$back
         ];
-        return response()->json($data, 200);
+        $headers = [
+            'Access-Control-Allow-Origin'=>'*'
+        ];
+        return response()->json($data, 200,$headers);
     }
 
     public function order(Request $request){
         
-        $data = [
-            'name'=>$request->input('name'),
+        $items = $request->input('items');
+        
+       
+       for($i=0;$i<count($items);$i++){
+            $data =[
+            'name'=>$request->input('order_name'),
             'address_one'=>$request->input('address_one'),
             'address_two'=>$request->input('address_two'),
             'address_three'=>$request->input('address_three'),
@@ -197,24 +204,15 @@ class QueryController extends Controller
             'postal_code'=>$request->input('postal_code'),
             'shipping_zone'=>$request->input('shipping_zone'),
             'email'=>$request->input('email'),
-            'phone'=>$request->input('phone'),            
-        ];
-        $items[] = $request->input('items');
-       for($i=0;$i<count($items);$i++){
-
-            $data =[
-            'quantity'=>$items[$i]['quantity'],
+            'phone'=>$request->input('phone'),  
+            'quantity'=>$items[$i]['qty'],
             'price'=>$items[$i]['price'],
-            'category'=>$items[$i]['category'],
-            'product_image_pdf'=>json_encode($items[$i]['product_image'])
+            'category'=>$items[$i]['category']
             ];
-
+            
             $dd = $this->order->create($data);
-
         }
 
-
-       
         return  response()->json('Successfully Saved', 200);
     
     }

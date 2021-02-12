@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use App\Models\Step;
+
 
 class Cover extends Model
 {
@@ -14,6 +16,11 @@ class Cover extends Model
     public static function getVerse($image){
         $data = DB::table('covers')->where('photo','=',$image)->get(['cover_type_html']);
         return $data[0]->cover_type_html;
+    }
+
+    public function steps()
+    {
+        return $this->belongsToMany(Step::class);
     }
     
 }

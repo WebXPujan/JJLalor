@@ -33,7 +33,7 @@ $config = [
 @endphp
 @foreach ($data as $d)
 @php
-    array_push($config['data'],[$d->id,$d->name,App\Models\Category::getName($d->category),App\Models\Sub_category::getName($d->sub_category),if($d->cover_type == 1) echo 'Front Cover'; elseif ($d->cover_type == 2) echo 'Back Cover'; elseif ($d->cover_type == '3') echo 'Inside Left Cover'; else echo 'Inside Right Cover';,'<img src="uploads/cover/full/'.$d->photo.'" style="max-height:60px; width:auto;"/>', '<nobr>'.'<a href="'.route('admin.covers.edit',$d->id).'" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
+    array_push($config['data'],[$d->id,$d->name,App\Models\Category::getName($d->category),(isset($d->sub_category)? App\Models\Sub_category::getName($d->sub_category):'NA'),$d->cover_type,'<img src="uploads/cover/full/'.$d->photo.'" style="max-height:60px; width:auto;"/>', '<nobr>'.'<a href="'.route('admin.covers.edit',$d->id).'" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                 <i class="fa fa-lg fa-fw fa-pen"></i>
             </a>'.'<a href="'.route('admin.covers.destroy',$d->id).'" class="btn btn-xs btn-default text-danger mx-1 shadow" title="Delete">
                   <i class="fa fa-lg fa-fw fa-trash"></i>
