@@ -38,4 +38,5 @@ Route::get('/price/{category}',[HomeController::class, 'price']);
 Route::post('/query',[QueryController::class,'query_table']);  
 Route::post('/order',[QueryController::class,'order']);  
 Route::post('/order/preview',[QueryController::class,'preview']);
+Route::post('/payment',[HomeController::class, 'create_payment']);
 

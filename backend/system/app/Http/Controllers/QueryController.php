@@ -82,22 +82,24 @@ class QueryController extends Controller
                 $dd = $this->query->findOrFail($request->input('query_id'));
                 $dd->update($data); 
 
-                $file = $this->createPdf('front_cover',$dd);
+                // $file = $this->createPdf('front_cover',$dd);
 
-                $data = [
-                    'query_id'=>$dd->id,
-                    'file' => $file
-                ];
-                return response()->json($data, 200);
+                // $data = [
+                //     'query_id'=>$dd->id,
+                //     'file' => $file
+                // ];
+                // return response()->json($data, 200);
+                return view('front_cover')->with(compact('dd'));
             }else{
                 $dd = $this->query->create($data);
 
-                $file = $this->createPdf('front_cover',$dd);
-                $data = [
-                    'query_id'=>$dd->id,
-                    'file' => $file
-                ];
-                return response()->json($data, 200);
+                // $file = $this->createPdf('front_cover',$dd);
+                // $data = [
+                //     'query_id'=>$dd->id,
+                //     'file' => $file
+                // ];
+                // return response()->json($data, 200);
+                return view('front_cover')->with(compact('dd'));
                 
             }
         }elseif($steps[0]->cover_type == '2'){
@@ -106,41 +108,45 @@ class QueryController extends Controller
                 $dd = $this->query->findOrFail($request->input('query_id'));
                 $dd->update($data);
 
-                $file = $this->createPdf('back_cover',$dd);
-                $data = [
-                    'query_id'=>$dd->id,
-                    'file' => $file
-                ];
-                return response()->json($data, 200);
+                // $file = $this->createPdf('back_cover',$dd);
+                // $data = [
+                //     'query_id'=>$dd->id,
+                //     'file' => $file
+                // ];
+                // return response()->json($data, 200);
+                return view('back_cover')->with(compact('dd'));
             }else{
                 $dd = $this->query->create($data);
-                $file = $this->createPdf('back_cover',$dd);
-                $data = [
-                    'query_id'=>$dd->id,
-                    'file' => $file
-                ];
-                return response()->json($data, 200);        
+                // $file = $this->createPdf('back_cover',$dd);
+                // $data = [
+                //     'query_id'=>$dd->id,
+                //     'file' => $file
+                // ];
+                // return response()->json($data, 200); 
+                return view('back_cover')->with(compact('dd'));       
             }
         }elseif($steps[0]->cover_type == '3'){
             //insert or update to table
             if($request->input('query_id')){
                 $dd = $this->query->findOrFail($request->input('query_id'));
                 $dd->update($data);
-                $file = $this->createPdf('inside_left',$dd);
-                $data = [
-                    'query_id'=>$dd->id,
-                    'file' => $file
-                ];
-                return response()->json($data, 200); 
+                // $file = $this->createPdf('inside_left',$dd);
+                // $data = [
+                //     'query_id'=>$dd->id,
+                //     'file' => $file
+                // ];
+                // return response()->json($data, 200); 
+                return view('inside_left')->with(compact('dd'));
                
             }else{
                 $dd = $this->query->create($data);
-                $file = $this->createPdf('inside_left',$dd);
-                $data = [
-                    'query_id'=>$dd->id,
-                    'file' => $file
-                ];
-                return response()->json($data, 200);
+                // $file = $this->createPdf('inside_left',$dd);
+                // $data = [
+                //     'query_id'=>$dd->id,
+                //     'file' => $file
+                // ];
+                // return response()->json($data, 200);
+                return view('inside_left')->with(compact('dd'));
                 
             }
         }elseif($steps[0]->cover_type == '4'){
@@ -148,20 +154,22 @@ class QueryController extends Controller
             if($request->input('query_id')){
                 $dd = $this->query->findOrFail($request->input('query_id'));
                 $dd->update($data);
-                $file = $this->createPdf('inside_right',$dd);
-                $data = [
-                    'query_id'=>$dd->id,
-                    'file' => $file
-                ];
-                return response()->json($data, 200);
+                // $file = $this->createPdf('inside_right',$dd);
+                // $data = [
+                //     'query_id'=>$dd->id,
+                //     'file' => $file
+                // ];
+                // return response()->json($data, 200);
+                return view('inside_right')->with(compact('dd'));
             }else{
                 $dd = $this->query->create($data); 
                 $file = $this->createPdf('inside_right',$dd);
-                $data = [
-                    'query_id'=>$dd->id,
-                    'file' => $file
-                ];
-                return response()->json($data, 200);
+                // $data = [
+                //     'query_id'=>$dd->id,
+                //     'file' => $file
+                // ];
+                // return response()->json($data, 200);
+                return view('inside_right')->with(compact('dd'));
             }
         }else{
             return  response()->json('failed', 200);
@@ -210,10 +218,13 @@ class QueryController extends Controller
             'category'=>$items[$i]['category']
             ];
             
-            $dd = $this->order->create($data);
+            $dd[$i] = $this->order->create($data)->id;
         }
-
-        return  response()->json('Successfully Saved', 200);
+            $data=[
+                'msg'=>'success',
+                'order'=>$dd
+            ];
+        return  response()->json($data, 200);
     
     }
     

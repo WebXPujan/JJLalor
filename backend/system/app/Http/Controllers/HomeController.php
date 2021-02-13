@@ -9,6 +9,7 @@ use App\Models\Cover;
 use App\Models\Step;
 use App\Models\Sipping_zone as Shipping;
 use DB;
+use App\Models\Order
 
 class HomeController extends Controller
 {
@@ -61,7 +62,7 @@ class HomeController extends Controller
            ->where('category',$cat_id)->where('sub_category',$sub_cat)->get();
         
         return response()->json($data, 200);
-        
+
     }
 
     public function shipping($zone){
@@ -71,9 +72,10 @@ class HomeController extends Controller
 
     public function price($category){
         
-        $cat_id = Category::where('slug','=',$category)->get(['id']);
-        $qty = DB::table('prices')->where('category','=',$cat_id[0]['id'])->get('quantity');
-        $price = DB::table('prices')->where('category','=',$cat_id[0]['id'])->get('price');
+        $cat_id = Category::where('slug','=',$category)->value('id');
+        $qty = DB::table('prices')->where('category','=',$cat_id)->get('quantity');
+        $price = DB::table('prices')->where('category','=',$cat_id)->get('price');
+
         $pr= []; $qt = [];
         foreach($price as $p){
             array_push($pr,$p->price);
@@ -81,7 +83,7 @@ class HomeController extends Controller
         foreach($qty as $q){
             array_push($qt,$q->quantity);
         }
-        $inc = DB::table('price_includes')->where('category','=',$cat_id[0]['id'])->get(['category','additional_qty','additional_price','includes']);
+        $inc = DB::table('price_includes')->where('category','=',$cat_id)->get(['category','additional_qty','additional_price','includes']);
         
         $data = [
             'category'=>$category,
@@ -95,5 +97,17 @@ class HomeController extends Controller
         return response()->json($data, 200);
     }
 
-    
+    public function create_payment(Request $request){
+        //orders detail                
+        $stripe=  \Stripe\Stripe::setApiKey('sk_test_51IGRRSBVo6EQdRinBG8Jz39SYk5uL8BI2jPD5hVgv05k99fFXXmbSh7EqNuQS1cjpts3cUCPeqpnKZ7yBBzQXdc600ROVZbaVb');               
+        $token = $request->input('stripeToken');
+        $charge= \Stripe\Charge::create([
+            'amount'=>$request->input('amount')*100,
+            'currency' => $request->input('currency'),
+            'description'=>$request->input('description'),
+            'source'=>$token
+        ]);
+        return response()->json($charge,200);
+    }
+     
 }
